@@ -74,8 +74,8 @@ Choosing a Pretrained YOLO v4 Object Detector
 
 | Model | Input image resolution | mAP  | Size (MB) | Classes |
 | ------ | ------ | ------ | ------ | ------ |
-| YOLOv4-coco | 608 x 608 | 44.2 | 229 | [coco class names](+helper/coco-classes.txt) |
-| YOLOv4-tiny-coco | 416 x 416 | 19.7 | 21.5 | [coco class names](+helper/coco-classes.txt) |
+| YOLOv4-coco | 608 x 608 | 44.2 | 229 | [coco class names](src/+helper/coco-classes.txt) |
+| YOLOv4-tiny-coco | 416 x 416 | 19.7 | 21.5 | [coco class names](src/+helper/coco-classes.txt) |
 
 - mAP for models trained on the COCO dataset is computed as average over IoU of .5:.95.
 
