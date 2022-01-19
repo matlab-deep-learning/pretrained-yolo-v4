@@ -31,7 +31,10 @@ end
 % elements per anchor box. The number of predictions per anchor box is set 
 % to 5 plus the number of object classes. "5" denoted the 4 bounding box 
 % attributes and 1 object confidence.
-numClasses = size(classNames, 2);
+if isrow(classNames)
+    classNames = classNames';
+end
+numClasses = size(classNames, 1);
 numPredictorsPerAnchor = 5 + numClasses;
  
 % Modify the layegraph to train with new set of classes.
