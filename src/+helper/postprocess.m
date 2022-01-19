@@ -5,6 +5,9 @@ function [bboxes,scores,labels] = postprocess(outFeatureMaps, anchors, netInputS
 % Copyright 2021 The MathWorks, Inc.
 
 % Get number of classes.
+if isrow(classNames)
+    classNames = classNames';
+end
 classNames = categorical(classNames);
 numClasses = size(classNames,1);
 
