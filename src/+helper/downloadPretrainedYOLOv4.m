@@ -8,19 +8,24 @@ supportedNetworks = ["YOLOv4-coco", "YOLOv4-tiny-coco"];
 validatestring(modelName, supportedNetworks);
 
 dataPath = 'models';
-netFileFullPath = fullfile(dataPath, [modelName, '.zip']);
+netMatFileFullPath = fullfile(dataPath, [modelName, '.mat']);
+netZipFileFullPath = fullfile(dataPath, [modelName, '.zip']);
 
-if ~exist(netFileFullPath,'file')
-    fprintf(['Downloading pretrained ', modelName ,' network.\n']);
-    fprintf('This can take several minutes to download...\n');
-    url = ['https://ssd.mathworks.com/supportfiles/vision/deeplearning/models/yolov4/',modelName,'.zip'];
-    websave(netFileFullPath, url);
-    fprintf('Done.\n\n');
-    unzip(netFileFullPath, dataPath);
-    model = load(['models/', modelName, '.mat']);
+if ~exist(netMatFileFullPath,'file')
+    if ~exist(netZipFileFullPath,'file')
+        fprintf(['Downloading pretrained ', modelName ,' network.\n']);
+        fprintf('This can take several minutes to download...\n');
+        url = ['https://ssd.mathworks.com/supportfiles/vision/deeplearning/models/yolov4/', modelName, '.zip'];
+        websave(netZipFileFullPath, url);
+        fprintf('Done.\n\n');
+        unzip(netZipFileFullPath, dataPath);
+    else
+        fprintf(['Pretrained ', modelName, ' network already exists.\n\n']);
+        unzip(netZipFileFullPath, dataPath);
+    end
 else
     fprintf(['Pretrained ', modelName, ' network already exists.\n\n']);
-    unzip(netFileFullPath, dataPath);
-    model = load(['models/', modelName, '.mat']);
 end
+
+model = load(netMatFileFullPath);
 end
