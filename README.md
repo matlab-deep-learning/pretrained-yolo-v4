@@ -1,76 +1,46 @@
 # Pretrained YOLO v4 Network For Object Detection
-
 This repository provides a pretrained YOLO v4[1] object detection network for MATLAB&reg;. [![Open in MATLAB Online](https://www.mathworks.com/images/responsive/global/open-in-matlab-online.svg)](https://matlab.mathworks.com/open/github/v1?repo=matlab-deep-learning/pretrained-yolo-v4)
 
-Requirements
-------------  
+**Creator**: MathWorks Development
 
-- MATLAB&reg; R2021a or later
-- Deep Learning Toolbox&trade;
-- Computer Vision Toolbox&trade;
 
-Overview
---------
+## Requirements
+- MATLAB® R2022a or later
+- Deep Learning Toolbox™
+- Computer Vision Toolbox™
+- Computer Vision Toolbox™ Model for YOLO v4 Object Detection
 
-Object detection is a computer vision technique used for locating instances of objects in images or videos. YOLO v4 is a popular single stage object detector that performs detection and classification using CNNs. The YOLO v4 network is composed of a backbone feature extraction network and detection heads for the localization of objects in an image. 
+Note: Previous MATLAB® release users can use [this](https://github.com/matlab-deep-learning/pretrained-yolo-v4/tree/previous) branch to download the pretrained models.
 
-This repository implements two variants of the YOLO v4 object detectors:
-- YOLOv4-coco: Standard YOLOv4 network trained on COCO dataset.
-- YOLOv4-tiny-coco: Lightweight YOLOv4 network trained on COCO dataset.
 
-The pretrained networks are trained to detect different object categories including person, car, traffic light, etc. These networks are trained using COCO 2017[2] which have 80 different object categories.
+## Getting Started
+[Getting Started with YOLO v4](https://in.mathworks.com/help/vision/ug/getting-started-with-yolo-v4.html)
 
-For more information about object detection, see [Getting Started with Object Detection Using Deep Learning](https://www.mathworks.com/help/vision/ug/getting-started-with-object-detection-using-deep-learning.html).
 
-Getting Started
----------------
+### Detect Objects Using Pretrained YOLO v4
+Use to code below to perform detection on an example image using the pretrained model.
 
-Download or clone this repository to your machine and open it in MATLAB&reg;.
-
-### Setup
-Add path to the source directory.
+Note: This functionality requires Deep Learning Toolbox™ and the Computer Vision Toolbox™ for YOLO v4 Object Detection. You can install the Computer Vision Toolbox for YOLO v4 Object Detection from Add-On Explorer. For more information about installing add-ons, see [Get and Manage Add-Ons](https://in.mathworks.com/help/matlab/matlab_env/get-add-ons.html).
 
 ```
-addpath('src');
-```
+% Load pretrained detector
+modelName = 'csp-darknet53-coco';
+detector = yolov4ObjectDetector(name);
 
-### Download the pretrained network
-Use the below helper to download the YOLO v4 pretrained models. Use "YOLOv4-coco" model name for selecting standard YOLO v4 pretrained network and "YOLOv4-tiny-coco" model name for tiny YOLO v4 network. 
-
-```
-modelName = 'YOLOv4-coco';
-model = helper.downloadPretrainedYOLOv4(modelName);
-net = model.net;
-```
-
-Detect Objects Using Pretrained YOLO v4 
----------------------------------------
-
-```
 % Read test image.
 image = imread('visionteam.jpg');
 
-% Get classnames of COCO dataset.
-classNames = helper.getCOCOClassNames;
-
-% Get anchors used in training of the pretrained model.
-anchors = helper.getAnchors(modelName);
-
-% Detect objects in test image.
-executionEnvironment = 'auto';
-[bboxes, scores, labels] = detectYOLOv4(net, image, anchors, classNames, executionEnvironment);
+% Detect objects in the test image.
+[boxes, scores, labels] = detect(detector, img);
 
 % Visualize detection results.
-annotations = string(labels) + ": " + string(scores);
-image = insertObjectAnnotation(image, 'rectangle', bboxes, annotations);
-
-figure, imshow(image)
+img = insertObjectAnnotation(img, 'rectangle', bboxes, scores);
+figure, imshow(img)
 ```
 ![alt text](images/result.png?raw=true)
 
-
-Choosing a Pretrained YOLO v4 Object Detector
----------------------------------------------
+### Choosing a Pretrained YOLO v4 Object Detector
+You can choose the ideal YOLO v4 object detector for your application based on the below table:
 
 | Model | Input image resolution | mAP  | Size (MB) | Classes |
 | ------ | ------ | ------ | ------ | ------ |
@@ -79,27 +49,15 @@ Choosing a Pretrained YOLO v4 Object Detector
 
 - mAP for models trained on the COCO dataset is computed as average over IoU of .5:.95.
 
-Train Custom YOLO v4 Using Transfer Learning
-----------------------------------------------------
-Transfer learning enables you to adapt a pretrained YOLO v4 network to your dataset. Create a custom YOLO v4 network for transfer learning with a new set of classes and train using the `yolov4TransferLearn.m` script.
+### Train Custom YOLO v4 Detector Using Transfer Learning
+To train a YOLO v4 object detection network on a labeled data set, use the [trainYOLOv4ObjectDetector](https://in.mathworks.com/help/vision/ref/trainyolov4objectdetector.html) function. You must specify the class names for the data set you use to train the network. Then, train an untrained or pretrained network by using the [trainYOLOv4ObjectDetector](https://in.mathworks.com/help/vision/ref/trainyolov4objectdetector.html) function. The training function returns the trained network as a [yolov4ObjectDetector](https://in.mathworks.com/help/vision/ref/yolov4objectdetector.html) object.
 
-Code Generation for YOLO v4
------------------------------------
-Code generation enables you to generate code and deploy YOLO v4 on multiple embedded platforms.
+For more information about training a YOLO v4 object detector, see [Object Detection using YOLO v4 Deep Learning Example](https://in.mathworks.com/help/vision/ug/object-detection-using-yolov4-deep-learning.html).
 
-Run `codegenYOLOv4.m`. This script calls the `yolov4Predict.m` entry point function and generate CUDA code for YOLOv4-coco or YOLOv4-tiny-coco models. It will run the generated MEX and give output.  
+## Code Generation for YOLO v4
+Code generation enables you to generate code and deploy YOLO v4 on multiple embedded platforms. For more information about generating CUDA® code using the YOLO v4 object detector see [Code Generation for Object Detection by Using YOLO v4](https://in.mathworks.com/help/gpucoder/ug/code-generation-for-object-detection-using-YOLO-v4.html)
 
-| Model | Input image resolution | Speed(FPS) with Codegen| Speed(FPS) w/o Codegen | 
-| ------ | ------ | ------ | ------ | 
-| YOLOv4-coco | 608 x 608 | 14.025 | 1.18 |
-| YOLOv4-tiny-coco | 416 x 416 | 49.309 | 9.46 |
-
-- Performance (in FPS) is measured on a TITAN-RTX GPU.
-
-For more information about codegen, see [Deep Learning with GPU Coder](https://www.mathworks.com/help/gpucoder/gpucoder-deep-learning.html)
-
-YOLO v4 Network Details
------------------------
+## YOLO v4 Network Details
 YOLO v4 network architecture is comprised of three sections i.e. Backbone, Neck and Detection Head.
 
 ![alt text](images/network.png?raw=true)
@@ -110,11 +68,9 @@ YOLO v4 network architecture is comprised of three sections i.e. Backbone, Neck 
 
 - **Detection Head**: This section processes the aggregated features from the Neck section and predicts the Bounding boxes, Objectness score and Classification scores. This follows the principle of one-stage anchor based object detector.    
 
-References
------------
-
+## References
 [1] Bochkovskiy, Alexey, Chien-Yao Wang, and Hong-Yuan Mark Liao. "YOLOv4: Optimal Speed and Accuracy of Object Detection." arXiv preprint arXiv:2004.10934 (2020).
 
 [2] Lin, T., et al. "Microsoft COCO: Common objects in context. arXiv 2014." arXiv preprint arXiv:1405.0312 (2014).
 
-Copyright 2021 The MathWorks, Inc.
+Copyright 2021 - 2024 The MathWorks, Inc.
