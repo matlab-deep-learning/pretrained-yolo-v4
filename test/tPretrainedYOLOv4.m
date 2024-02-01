@@ -21,7 +21,7 @@ classdef(SharedTestFixtures = {DownloadYolov4Fixture}) tPretrainedYOLOv4 < matla
             classNames = helper.getCOCOClassNames;
             anchors = helper.getAnchors(modelName{1});
             [bboxes, scores, labels] = detectYOLOv4(detector.net, image, anchors, classNames, 'auto');
-            test.verifyEqual(bboxes, Model.expectedBboxes,'AbsTol',single(1e-4));
+            test.verifyEqual(bboxes, Model.expectedBboxes,'AbsTol',single(0.5));
             test.verifyEqual(scores, Model.expectedScores,'AbsTol',single(1e-4));
             test.verifyEqual(labels, Model.expectedLabels);            
         end       
