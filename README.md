@@ -14,13 +14,13 @@ Note: Previous MATLAB® release users can use [this](https://github.com/matlab-d
 
 
 ## Getting Started
-[Getting Started with YOLO v4](https://in.mathworks.com/help/vision/ug/getting-started-with-yolo-v4.html)
+[Getting Started with YOLO v4](https://www.mathworks.com/help/vision/ug/getting-started-with-yolo-v4.html)
 
 
 ### Detect Objects Using Pretrained YOLO v4
 Use to code below to perform detection on an example image using the pretrained model.
 
-Note: This functionality requires Deep Learning Toolbox™ and the Computer Vision Toolbox™ for YOLO v4 Object Detection. You can install the Computer Vision Toolbox for YOLO v4 Object Detection from Add-On Explorer. For more information about installing add-ons, see [Get and Manage Add-Ons](https://in.mathworks.com/help/matlab/matlab_env/get-add-ons.html).
+Note: This functionality requires Deep Learning Toolbox™ and the Computer Vision Toolbox™ for YOLO v4 Object Detection. You can install the Computer Vision Toolbox for YOLO v4 Object Detection from Add-On Explorer. For more information about installing add-ons, see [Get and Manage Add-Ons](https://www.mathworks.com/help/matlab/matlab_env/get-add-ons.html).
 
 ```
 % Load pretrained detector
@@ -50,12 +50,12 @@ You can choose the ideal YOLO v4 object detector for your application based on t
 - mAP for models trained on the COCO dataset is computed as average over IoU of .5:.95.
 
 ### Train Custom YOLO v4 Detector Using Transfer Learning
-To train a YOLO v4 object detection network on a labeled data set, use the [trainYOLOv4ObjectDetector](https://in.mathworks.com/help/vision/ref/trainyolov4objectdetector.html) function. You must specify the class names for the data set you use to train the network. Then, train an untrained or pretrained network by using the [trainYOLOv4ObjectDetector](https://in.mathworks.com/help/vision/ref/trainyolov4objectdetector.html) function. The training function returns the trained network as a [yolov4ObjectDetector](https://in.mathworks.com/help/vision/ref/yolov4objectdetector.html) object.
+To train a YOLO v4 object detection network on a labeled data set, use the [trainYOLOv4ObjectDetector](https://www.mathworks.com/help/vision/ref/trainyolov4objectdetector.html) function. You must specify the class names for the data set you use to train the network. Then, train an untrained or pretrained network by using the [trainYOLOv4ObjectDetector](https://www.mathworks.com/help/vision/ref/trainyolov4objectdetector.html) function. The training function returns the trained network as a [yolov4ObjectDetector](https://www.mathworks.com/help/vision/ref/yolov4objectdetector.html) object.
 
-For more information about training a YOLO v4 object detector, see [Object Detection using YOLO v4 Deep Learning Example](https://in.mathworks.com/help/vision/ug/object-detection-using-yolov4-deep-learning.html).
+For more information about training a YOLO v4 object detector, see [Object Detection using YOLO v4 Deep Learning Example](https://www.mathworks.com/help/vision/ug/object-detection-using-yolov4-deep-learning.html).
 
 ## Code Generation for YOLO v4
-Code generation enables you to generate code and deploy YOLO v4 on multiple embedded platforms. For more information about generating CUDA® code using the YOLO v4 object detector see [Code Generation for Object Detection by Using YOLO v4](https://in.mathworks.com/help/gpucoder/ug/code-generation-for-object-detection-using-YOLO-v4.html)
+Code generation enables you to generate code and deploy YOLO v4 on multiple embedded platforms. For more information about generating CUDA® code using the YOLO v4 object detector see [Code Generation for Object Detection by Using YOLO v4](https://www.mathworks.com/help/deeplearning/ug/code-generation-for-object-detection-using-YOLO-v4.html)
 
 ## YOLO v4 Network Details
 YOLO v4 network architecture is comprised of three sections i.e. Backbone, Neck and Detection Head.
